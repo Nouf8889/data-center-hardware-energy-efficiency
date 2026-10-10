@@ -1,0 +1,88 @@
+instance_type,instance_family,vcpu,memory_gb,physical_processor,processor_architecture,region,operating_system,tenancy,pricing_type,hourly_price_usd,monthly_price_usd,annual_price_usd
+c6i.large,c6i,2,4.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.085,61.2,744.6
+c6i.xlarge,c6i,4,8.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.17,122.4,1489.2
+c6i.2xlarge,c6i,8,16.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.34,244.8,2978.4
+c6i.4xlarge,c6i,16,32.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.68,489.6,5956.8
+c6i.8xlarge,c6i,32,64.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,1.36,979.2,11913.6
+c6i.12xlarge,c6i,48,96.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,2.04,1468.8,17870.4
+c6i.16xlarge,c6i,64,128.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,2.72,1958.4,23827.2
+c6i.24xlarge,c6i,96,192.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,4.08,2937.6,35740.8
+c6i.32xlarge,c6i,128,256.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,5.44,3916.8,47654.4
+c7a.medium,c7a,1,2.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.05132,36.95,449.56
+c7a.large,c7a,2,4.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.10264,73.9,899.13
+c7a.xlarge,c7a,4,8.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.20528,147.8,1798.25
+c7a.2xlarge,c7a,8,16.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.41056,295.6,3596.51
+c7a.4xlarge,c7a,16,32.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.82112,591.21,7193.01
+c7a.8xlarge,c7a,32,64.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,1.64224,1182.41,14386.02
+c7a.12xlarge,c7a,48,96.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,2.46336,1773.62,21579.03
+c7a.16xlarge,c7a,64,128.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,3.28448,2364.83,28772.04
+c7a.24xlarge,c7a,96,192.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,4.92672,3547.24,43158.07
+c7a.32xlarge,c7a,128,256.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,6.56896,4729.65,57544.09
+c7a.48xlarge,c7a,192,384.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,9.85344,7094.48,86316.13
+c7i.large,c7i,2,4.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.08925,64.26,781.83
+c7i.xlarge,c7i,4,8.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.1785,128.52,1563.66
+c7i.2xlarge,c7i,8,16.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.357,257.04,3127.32
+c7i.4xlarge,c7i,16,32.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.714,514.08,6254.64
+c7i.8xlarge,c7i,32,64.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,1.428,1028.16,12509.28
+c7i.12xlarge,c7i,48,96.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,2.142,1542.24,18763.92
+c7i.16xlarge,c7i,64,128.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,2.856,2056.32,25018.56
+c7i.24xlarge,c7i,96,192.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,4.284,3084.48,37527.84
+c7i.48xlarge,c7i,192,384.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,8.568,6168.96,75055.68
+m6i.large,m6i,2,8.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.096,69.12,840.96
+m6i.xlarge,m6i,4,16.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.192,138.24,1681.92
+m6i.2xlarge,m6i,8,32.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.384,276.48,3363.84
+m6i.4xlarge,m6i,16,64.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.768,552.96,6727.68
+m6i.8xlarge,m6i,32,128.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,1.536,1105.92,13455.36
+m6i.12xlarge,m6i,48,192.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,2.304,1658.88,20183.04
+m6i.16xlarge,m6i,64,256.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,3.072,2211.84,26910.72
+m6i.24xlarge,m6i,96,384.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,4.608,3317.76,40366.08
+m6i.32xlarge,m6i,128,512.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,6.144,4423.68,53821.44
+m7a.medium,m7a,1,4.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.05796,41.73,507.73
+m7a.large,m7a,2,8.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.11592,83.46,1015.46
+m7a.xlarge,m7a,4,16.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.23184,166.92,2030.92
+m7a.2xlarge,m7a,8,32.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.46368,333.85,4061.84
+m7a.4xlarge,m7a,16,64.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.92736,667.7,8123.67
+m7a.8xlarge,m7a,32,128.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,1.85472,1335.4,16247.35
+m7a.12xlarge,m7a,48,192.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,2.78208,2003.1,24371.02
+m7a.16xlarge,m7a,64,256.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,3.70944,2670.8,32494.69
+m7a.24xlarge,m7a,96,384.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,5.56416,4006.2,48742.04
+m7a.32xlarge,m7a,128,512.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,7.41888,5341.59,64989.39
+m7a.48xlarge,m7a,192,768.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,11.12832,8012.39,97484.08
+m7i.large,m7i,2,8.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.1008,72.58,883.01
+m7i.xlarge,m7i,4,16.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.2016,145.15,1766.02
+m7i.2xlarge,m7i,8,32.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.4032,290.3,3532.03
+m7i.4xlarge,m7i,16,64.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.8064,580.61,7064.06
+m7i.8xlarge,m7i,32,128.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,1.6128,1161.22,14128.13
+m7i.12xlarge,m7i,48,192.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,2.4192,1741.82,21192.19
+m7i.16xlarge,m7i,64,256.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,3.2256,2322.43,28256.26
+m7i.24xlarge,m7i,96,384.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,4.8384,3483.65,42384.38
+m7i.48xlarge,m7i,192,768.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,9.6768,6967.3,84768.77
+r6i.large,r6i,2,16.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.126,90.72,1103.76
+r6i.xlarge,r6i,4,32.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.252,181.44,2207.52
+r6i.2xlarge,r6i,8,64.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,0.504,362.88,4415.04
+r6i.4xlarge,r6i,16,128.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,1.008,725.76,8830.08
+r6i.8xlarge,r6i,32,256.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,2.016,1451.52,17660.16
+r6i.12xlarge,r6i,48,384.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,3.024,2177.28,26490.24
+r6i.16xlarge,r6i,64,512.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,4.032,2903.04,35320.32
+r6i.24xlarge,r6i,96,768.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,6.048,4354.56,52980.48
+r6i.32xlarge,r6i,128,1024.0,Intel Xeon 8375C (Ice Lake),64-bit,us-east-1,Linux,Shared,OnDemand,8.064,5806.08,70640.64
+r7a.medium,r7a,1,8.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.07608,54.78,666.46
+r7a.large,r7a,2,16.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.15215,109.55,1332.83
+r7a.xlarge,r7a,4,32.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.3043,219.1,2665.67
+r7a.2xlarge,r7a,8,64.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,0.6086,438.19,5331.34
+r7a.4xlarge,r7a,16,128.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,1.2172,876.38,10662.67
+r7a.8xlarge,r7a,32,256.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,2.4344,1752.77,21325.34
+r7a.12xlarge,r7a,48,384.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,3.6516,2629.15,31988.02
+r7a.16xlarge,r7a,64,512.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,4.8688,3505.54,42650.69
+r7a.24xlarge,r7a,96,768.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,7.3032,5258.3,63976.03
+r7a.32xlarge,r7a,128,1024.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,9.7376,7011.07,85301.38
+r7a.48xlarge,r7a,192,1536.0,AMD EPYC 9R14 Processor,64-bit,us-east-1,Linux,Shared,OnDemand,14.6064,10516.61,127952.06
+r7i.large,r7i,2,16.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.1323,95.26,1158.95
+r7i.xlarge,r7i,4,32.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.2646,190.51,2317.9
+r7i.2xlarge,r7i,8,64.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,0.5292,381.02,4635.79
+r7i.4xlarge,r7i,16,128.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,1.0584,762.05,9271.58
+r7i.8xlarge,r7i,32,256.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,2.1168,1524.1,18543.17
+r7i.12xlarge,r7i,48,384.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,3.1752,2286.14,27814.75
+r7i.16xlarge,r7i,64,512.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,4.2336,3048.19,37086.34
+r7i.24xlarge,r7i,96,768.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,6.3504,4572.29,55629.5
+r7i.48xlarge,r7i,192,1536.0,Intel Xeon Scalable (Sapphire Rapids),64-bit,us-east-1,Linux,Shared,OnDemand,12.7008,9144.58,111259.01
