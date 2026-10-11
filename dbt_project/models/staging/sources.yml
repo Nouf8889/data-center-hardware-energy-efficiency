@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: data-center-hardware
+    schema: raw_data
+    description: "Cleaned and prepared source datasets stored in Google BigQuery."
+
+    tables:
+      - name: specpower_cleaned
+      - name: specpower_energy
+      - name: specpower_recommendations
+
+      - name: google_machine_hardware_cleaned
+      - name: google_hardware_workload_joined
+      - name: google_power_cella_pdu10_cleaned
+
+      - name: aws_ec2_pricing_cleaned

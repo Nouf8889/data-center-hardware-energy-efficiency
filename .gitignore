@@ -225,3 +225,10 @@ __marimo__/
 .vscode/
 .idea/
 .DS_Store
+
+# dbt
+dbt_project/dbt_packages/
+dbt_project/logs/
+dbt_project/target/
+profiles.yml
+dbt_project/.user.yml

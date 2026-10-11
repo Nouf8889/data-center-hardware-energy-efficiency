@@ -1,0 +1,39 @@
+# ==========================================
+# Data Center Hardware & Energy Efficiency
+# dbt Project Configuration
+# ==========================================
+
+# Project Information
+name: 'dbt_project'
+version: '1.0.0'
+config-version: 2
+
+# BigQuery Connection Profile
+profile: 'dbt_project'
+
+# Project Directories
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Directories cleaned by dbt clean
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# ==========================================
+# Model Configurations
+# ==========================================
+
+models:
+  dbt_project:
+
+    # Default materialization for all models
+    +materialized: view
+
+    # Staging models
+    staging:
+      +materialized: view
