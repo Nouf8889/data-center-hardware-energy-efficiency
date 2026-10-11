@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: mart_power_trends
+    description: "Hourly power utilization trends for Google Cell A PDU10."
+
+    columns:
+      - name: cell
+        data_tests:
+          - not_null
+
+      - name: pdu
+        data_tests:
+          - not_null
+
+      - name: hour_bucket
+        data_tests:
+          - not_null
+
+      - name: total_readings
+        data_tests:
+          - not_null
+
+      - name: avg_measured_power_util
+        data_tests:
+          - not_null
