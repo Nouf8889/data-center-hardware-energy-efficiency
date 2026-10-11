@@ -154,6 +154,32 @@ Two illustrative performance scenarios were evaluated:
 
 
 
+### 3. Cloud Cost Analysis
+
+**Dataset:** `analytics.mart_cloud_cost`
+
+#### Dataset Overview
+- Total records: 87
+- Distinct instance types: 87
+- Regions represented: 1 (`us-east-1` in the returned pricing comparison)
+- Pricing types represented: 1 (`OnDemand` in the returned pricing comparison)
+- Hourly prices missing: 0
+- Invalid or missing vCPU capacity: 0 records
+- Invalid or missing memory capacity: 0 records
+
+#### Cost Findings
+- The `c6i` family has the lowest average hourly cost per vCPU among the nine families, at $0.0425.
+- The `r6i` family has the lowest average hourly cost per GB of memory, at $0.007875.
+- The `r6i` memory cost per GB is approximately 62.9% lower than `c6i`, based on the returned family-level averages.
+- The `c6i` average cost per vCPU is approximately 44.1% lower than `r7a`.
+- The results show a trade-off between compute cost and memory cost: `c6i` is the lowest-cost family per vCPU, while `r6i` is the lowest-cost family per GB of memory.
+
+#### Interpretation and Limitations
+- `c6i` may be a cost-effective option for workloads prioritizing vCPU cost, while `r6i` may be worth evaluating for memory-intensive workloads.
+- These are price-to-resource comparisons, not measurements of real application performance or energy efficiency.
+- The analysis covers one region and one pricing type in the returned dataset, so findings should not be generalized to other regions or pricing plans.
+- The lowest unit cost does not necessarily imply the lowest total cost for a workload; workload requirements and instance sizing must also be considered.
+
 
 
 
@@ -166,3 +192,5 @@ Two illustrative performance scenarios were evaluated:
 ## 5. Final Recommendations
 
 *To be completed after all analytical models have been reviewed.*
+
+
