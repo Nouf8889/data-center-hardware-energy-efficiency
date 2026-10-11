@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_google_power_cella_pdu10
+    description: "Staging model for Google Cell A PDU10 power utilization data."
+
+    columns:
+      - name: time
+        description: "Timestamp represented as an integer."
+        data_tests:
+          - not_null
+
+      - name: cell
+        description: "Data center cell identifier."
+        data_tests:
+          - not_null
+
+      - name: pdu
+        description: "Power distribution unit identifier."
+        data_tests:
+          - not_null
+
+      - name: measured_power_util
+        description: "Measured power utilization."
+        data_tests:
+          - not_null
+
+      - name: production_power_util
+        description: "Production power utilization."
+        data_tests:
+          - not_null
+
+      - name: bad_measurement_data
+        description: "Flag indicating problematic measurement data."
+
+      - name: bad_production_power_data
+        description: "Flag indicating problematic production power data."
+
+      - name: hours_from_start
+        description: "Hours elapsed since the start of measurements."
