@@ -1,0 +1,22 @@
+
+version: 2
+
+models:
+  - name: mart_server_efficiency
+    description: "Server efficiency and power consumption analysis using SPECpower data."
+    columns:
+      - name: hardware_vendor
+        description: "Server hardware manufacturer."
+        data_tests:
+          - not_null
+
+      - name: ssj_ops_per_watt
+        description: "Performance per watt."
+        data_tests:
+          - not_null
+
+      - name: avg_watts_100
+        description: "Average power consumption at 100% load."
+        data_tests:
+          - not_null
+          
