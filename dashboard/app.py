@@ -9,7 +9,7 @@ st.set_page_config(
 )
 
 # Main title
-st.title("⚡ Data Center Hardware & Energy Efficiency")
+st.title("⚡Welcome to the Data Center Hardware & Energy Efficiency")
 st.caption("Developed and Integrated by: Amal Alamri")
 
 # Project introduction
