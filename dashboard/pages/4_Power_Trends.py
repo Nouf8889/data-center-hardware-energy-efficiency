@@ -1,20 +1,37 @@
 
-import streamlit as st
+import math
+
 import altair as alt
 import pandas as pd
-import math
+import streamlit as st
 
 from bigquery_utils import run_query
 
+
+# ---------------------------------
+# Page Header
+# ---------------------------------
 st.title("📈 Power Utilization Trends")
 st.caption("Developed by: Nouf")
 
 st.write(
-    "Explore measured and production power utilization "
+    "Explore how measured power utilization compares "
+    "with estimated production power utilization "
     "over time using Google Power data."
 )
 
+st.info(
+    "**Why this matters:** Comparing measured power "
+    "utilization with production-attributed power "
+    "utilization helps us understand power usage "
+    "patterns and identify periods that may require "
+    "further analysis."
+)
 
+
+# ---------------------------------
+# Load Data from BigQuery
+# ---------------------------------
 @st.cache_data(ttl=600)
 def load_power_data():
     query = """
@@ -23,9 +40,7 @@ def load_power_data():
         cell,
         pdu,
         measured_power_util,
-        production_power_util,
-        bad_measurement_data,
-        bad_production_power_data
+        production_power_util
     FROM `data-center-hardware.raw_data.google_power_cella_pdu10_cleaned`
     ORDER BY hours_from_start
     """
@@ -39,38 +54,64 @@ try:
         st.warning("No power data available.")
         st.stop()
 
-    # Prepare numeric columns
-    df["hours_from_start"] = pd.to_numeric(
-        df["hours_from_start"], errors="coerce"
-    )
+    # ---------------------------------
+    # Prepare Data
+    # ---------------------------------
+    numeric_columns = [
+        "hours_from_start",
+        "measured_power_util",
+        "production_power_util",
+    ]
 
-    df = df.dropna(subset=["hours_from_start"])
+    for column in numeric_columns:
+        df[column] = pd.to_numeric(
+            df[column],
+            errors="coerce",
+        )
+
+    df = df.dropna(
+        subset=["hours_from_start"]
+    ).copy()
+
+    df = df[
+        df["hours_from_start"].map(math.isfinite)
+    ].copy()
 
     if df.empty:
         st.warning("No valid time values available.")
         st.stop()
 
-    # -------------------------------
+    # ---------------------------------
     # Filters
-    # -------------------------------
+    # ---------------------------------
     st.subheader("Filters")
 
-    pdu_options = sorted(df["pdu"].dropna().unique().tolist())
+    pdu_options = sorted(
+        df["pdu"].dropna().unique().tolist()
+    )
 
     if not pdu_options:
         st.warning("No PDU values available.")
         st.stop()
 
-    selected_pdu = st.selectbox("Select PDU", pdu_options)
+    selected_pdu = st.selectbox(
+        "Select PDU",
+        pdu_options,
+    )
 
-    pdu_df = df[df["pdu"] == selected_pdu].copy()
+    pdu_df = df[
+        df["pdu"] == selected_pdu
+    ].copy()
 
-    min_hour = float(pdu_df["hours_from_start"].min())
-    max_hour = float(pdu_df["hours_from_start"].max())
+    min_hour = float(
+        pdu_df["hours_from_start"].min()
+    )
+
+    max_hour = float(
+        pdu_df["hours_from_start"].max()
+    )
 
     if min_hour < max_hour:
-        # Use whole-hour boundaries to include all measurements,
-        # including the last record with a fractional hour value.
         slider_min = math.floor(min_hour)
         slider_max = math.ceil(max_hour)
 
@@ -85,142 +126,341 @@ try:
         filtered_df = pdu_df[
             pdu_df["hours_from_start"].between(
                 selected_hours[0],
-                selected_hours[1]
+                selected_hours[1],
             )
         ].copy()
+
     else:
         filtered_df = pdu_df.copy()
-        st.info(f"Available time: {min_hour:.1f} hours")
+
+        st.info(
+            f"Available time: {min_hour:.1f} hours"
+        )
 
     if filtered_df.empty:
-        st.warning("No measurements in the selected time range.")
+        st.warning(
+            "No measurements in the selected time range."
+        )
         st.stop()
 
-    # -------------------------------
-    # KPI Metrics
-    # -------------------------------
+    # ---------------------------------
+    # Summary Metrics
+    # ---------------------------------
     st.subheader("Power Utilization Summary")
 
-    col1, col2, col3 = st.columns(3)
+    avg_measured = (
+        filtered_df["measured_power_util"].mean()
+    )
+
+    avg_production = (
+        filtered_df["production_power_util"].mean()
+    )
+
+    peak_measured = (
+        filtered_df["measured_power_util"].max()
+    )
+
+    # Calculate the gap for records that have
+    # both measured and production values.
+    paired_df = filtered_df.dropna(
+        subset=[
+            "measured_power_util",
+            "production_power_util",
+        ]
+    ).copy()
+
+    paired_df["gap_pp"] = (
+        paired_df["measured_power_util"]
+        - paired_df["production_power_util"]
+    ) * 100
+
+    avg_gap = paired_df["gap_pp"].mean()
+
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
         st.metric(
             "Avg. Measured Utilization",
-            f"{filtered_df['measured_power_util'].mean():.1%}"
+            (
+                f"{avg_measured:.1%}"
+                if pd.notna(avg_measured)
+                else "N/A"
+            ),
+            help=(
+                "Average total measured power utilization."
+            ),
         )
 
     with col2:
         st.metric(
             "Avg. Production Utilization",
-            f"{filtered_df['production_power_util'].mean():.1%}"
+            (
+                f"{avg_production:.1%}"
+                if pd.notna(avg_production)
+                else "N/A"
+            ),
+            help=(
+                "Average estimated power utilization "
+                "attributed to production workloads."
+            ),
         )
 
     with col3:
         st.metric(
-            "Total Measurements",
-            f"{len(filtered_df):,}"
+            "Avg. Utilization Gap",
+            (
+                f"{avg_gap:+.1f} pp"
+                if pd.notna(avg_gap)
+                else "N/A"
+            ),
+            help=(
+                "Measured utilization minus production "
+                "utilization, averaged across paired "
+                "records. pp = percentage points."
+            ),
         )
 
-    # -------------------------------
-    # Power Trends Chart
-    # -------------------------------
-    st.subheader("Measured vs. Production Power Utilization")
+    with col4:
+        st.metric(
+            "Peak Measured Utilization",
+            (
+                f"{peak_measured:.1%}"
+                if pd.notna(peak_measured)
+                else "N/A"
+            ),
+            help=(
+                "Highest measured utilization "
+                "in the selected time range."
+            ),
+        )
+
+    st.caption(
+        f"Total records in selected range: "
+        f"{len(filtered_df):,}"
+    )
+
+    # ---------------------------------
+    # Explain the Metrics
+    # ---------------------------------
+    with st.expander(
+        "What do Measured, Production, and Gap mean?"
+    ):
+        st.markdown(
+            """
+            **Measured Power Utilization**
+
+            Total measured power utilization,
+            including power used by supporting
+            equipment such as cooling.
+
+            **Production Power Utilization**
+
+            Estimated power utilization attributed
+            to production workloads.
+
+            **Utilization Gap**
+
+            The difference between measured and
+            production utilization, expressed in
+            percentage points.
+
+            **Why compare them?**
+
+            Comparing these metrics helps us
+            understand how total power usage
+            relates to production workloads
+            over time.
+
+            **Important:** The gap does not
+            directly measure wasted electricity
+            or energy savings.
+            """
+        )
+
+    # ---------------------------------
+    # Main Power Trends Chart
+    # ---------------------------------
+    st.subheader(
+        "Measured vs. Production Power Utilization"
+    )
+
+    st.write(
+        "This chart compares measured power utilization "
+        "and estimated production power utilization "
+        "throughout the selected period."
+    )
 
     chart_df = filtered_df.melt(
         id_vars=["hours_from_start"],
         value_vars=[
             "measured_power_util",
-            "production_power_util"
+            "production_power_util",
         ],
         var_name="Power Type",
-        value_name="Power Utilization"
+        value_name="Power Utilization",
+    ).dropna(
+        subset=["Power Utilization"]
     )
 
-    chart = (
-        alt.Chart(chart_df)
-        .mark_line()
-        .encode(
-            x=alt.X(
-                "hours_from_start:Q",
-                title="Hours from Start"
-            ),
-            y=alt.Y(
-                "Power Utilization:Q",
-                title="Power Utilization",
-                scale=alt.Scale(domain=[0, 1])
-            ),
-            color=alt.Color(
-                "Power Type:N",
-                title="Power Type"
-            ),
-            tooltip=[
-                alt.Tooltip(
+    chart_df["Power Type"] = (
+        chart_df["Power Type"].replace(
+            {
+                "measured_power_util": "Measured Power",
+                "production_power_util": "Production Power",
+            }
+        )
+    )
+
+    if chart_df.empty:
+        st.info(
+            "No valid utilization values available "
+            "for the chart."
+        )
+
+    else:
+        chart = (
+            alt.Chart(chart_df)
+            .mark_line()
+            .encode(
+                x=alt.X(
                     "hours_from_start:Q",
-                    title="Hour",
-                    format=".1f"
+                    title="Hours from Start",
                 ),
-                alt.Tooltip("Power Type:N"),
-                alt.Tooltip(
+                y=alt.Y(
                     "Power Utilization:Q",
-                    format=".1%"
-                )
-            ]
-        )
-        .properties(height=400)
-        .interactive()
-    )
-
-    st.altair_chart(chart, use_container_width=True)
-
-    st.caption(
-        "The chart shows utilization ratios, not electricity "
-        "consumption in kWh or measured energy savings."
-    )
-
-    # -------------------------------
-    # Data Quality Overview
-    # -------------------------------
-    st.subheader("Data Quality Overview")
-
-    measurement_flags = (
-        filtered_df["bad_measurement_data"]
-        .fillna(False)
-        .eq(True)
-        .sum()
-    )
-
-    production_flags = (
-        filtered_df["bad_production_power_data"]
-        .fillna(False)
-        .eq(True)
-        .sum()
-    )
-
-    q1, q2, q3 = st.columns(3)
-
-    with q1:
-        st.metric(
-            "Flagged Measurements",
-            f"{measurement_flags:,}"
+                    title="Power Utilization",
+                    axis=alt.Axis(format=".0%"),
+                    scale=alt.Scale(domain=[0, 1]),
+                ),
+                color=alt.Color(
+                    "Power Type:N",
+                    title="Power Type",
+                    scale=alt.Scale(
+                        domain=[
+                            "Measured Power",
+                            "Production Power",
+                        ],
+                        range=[
+                            "#38BDF8",
+                            "#14B8A6",
+                        ],
+                    ),
+                ),
+                tooltip=[
+                    alt.Tooltip(
+                        "hours_from_start:Q",
+                        title="Hour",
+                        format=".2f",
+                    ),
+                    alt.Tooltip("Power Type:N"),
+                    alt.Tooltip(
+                        "Power Utilization:Q",
+                        title="Utilization",
+                        format=".1%",
+                    ),
+                ],
+            )
+            .properties(height=380)
+            .interactive()
         )
 
-    with q2:
-        st.metric(
-            "Flagged Production Records",
-            f"{production_flags:,}"
-        )
-
-    with q3:
-        st.metric(
-            "Records in Selected Range",
-            f"{len(filtered_df):,}"
+        st.altair_chart(
+            chart,
+            use_container_width=True,
         )
 
     st.caption(
-        "Quality flags are provided by the dataset. "
-        "Flagged records are included in the chart and "
-        "summary metrics; they are not automatically removed."
+        "Values represent power utilization ratios, "
+        "not electricity consumption in kWh."
+    )
+
+    # ---------------------------------
+    # Utilization Gap Chart
+    # ---------------------------------
+    st.subheader("Utilization Gap Over Time")
+
+    st.write(
+        "This chart shows how the difference between "
+        "measured and production power utilization "
+        "changes over time."
+    )
+
+    if paired_df.empty:
+        st.info(
+            "No paired utilization values available "
+            "for the gap chart."
+        )
+
+    else:
+        gap_chart = (
+            alt.Chart(paired_df)
+            .mark_area(
+                line=True,
+                opacity=0.35,
+                color="#38BDF8",
+            )
+            .encode(
+                x=alt.X(
+                    "hours_from_start:Q",
+                    title="Hours from Start",
+                ),
+                y=alt.Y(
+                    "gap_pp:Q",
+                    title=(
+                        "Utilization Gap "
+                        "(percentage points)"
+                    ),
+                    scale=alt.Scale(zero=True),
+                ),
+                tooltip=[
+                    alt.Tooltip(
+                        "hours_from_start:Q",
+                        title="Hour",
+                        format=".2f",
+                    ),
+                    alt.Tooltip(
+                        "gap_pp:Q",
+                        title="Gap (pp)",
+                        format="+.2f",
+                    ),
+                ],
+            )
+            .properties(height=260)
+            .interactive()
+        )
+
+        st.altair_chart(
+            gap_chart,
+            use_container_width=True,
+        )
+
+    st.info(
+        "**Why analyze the gap?** "
+        "Changes in the gap help us identify periods "
+        "when total measured power and production-attributed "
+        "power differ more or less than usual."
+    )
+
+    st.caption(
+        "A larger utilization gap does not automatically "
+        "indicate energy waste or poor efficiency."
+    )
+
+    # ---------------------------------
+    # Key Takeaway
+    # ---------------------------------
+    st.subheader("Key Takeaway")
+
+    st.write(
+        "This dashboard helps us understand power "
+        "utilization patterns over time by comparing "
+        "total measured power with estimated "
+        "production-attributed power. These insights "
+        "support further investigation into data "
+        "center energy efficiency."
     )
 
 except Exception as e:
-    st.error(f"Unable to load power data: {e}")
+    st.error(
+        f"Unable to load power data: {e}"
+    )
