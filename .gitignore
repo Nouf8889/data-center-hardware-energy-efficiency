@@ -232,3 +232,6 @@ dbt_project/logs/
 dbt_project/target/
 profiles.yml
 dbt_project/.user.yml
+
+# Airflow runtime logs
+airflow/logs/
