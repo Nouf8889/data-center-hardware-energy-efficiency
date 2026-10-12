@@ -1,6 +1,9 @@
 services:
   airflow:
-    image: apache/airflow:2.10.5
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: data-center-airflow:local
     container_name: data-center-airflow
     command: standalone
     ports:
@@ -12,4 +15,8 @@ services:
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
+      - ../dbt_project:/opt/airflow/dbt_project
+      - ./checks:/opt/airflow/checks
+      - /home/progmal/.dbt:/home/airflow/.dbt:ro
+      - ./credentials/application_default_credentials.json:/home/airflow/.config/gcloud/application_default_credentials.json:ro
     restart: "no"

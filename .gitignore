@@ -235,3 +235,5 @@ dbt_project/.user.yml
 
 # Airflow runtime logs
 airflow/logs/
+
+/airflow/credentials/
