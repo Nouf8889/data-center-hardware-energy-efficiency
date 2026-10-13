@@ -1,6 +1,8 @@
 
 import csv
 import requests
+from pathlib import Path
+
 import pandas as pd
 
 # Current AWS EC2 price list
@@ -11,7 +13,9 @@ URL = (
 
 TARGETS = {"c6i.large", "m6i.large", "r6i.large"}
 
-df = pd.read_csv("data/aws_ec2_pricing_cleaned.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+df = pd.read_csv(DATA_DIR / "aws_ec2_pricing_cleaned.csv")
 
 local_prices = dict(zip(
     df["instance_type"],

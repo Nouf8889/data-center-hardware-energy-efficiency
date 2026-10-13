@@ -1,11 +1,16 @@
+from pathlib import Path
+
 import pandas as pd
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+
 hardware = pd.read_csv(
-    "data/google_machine_hardware_cleaned.csv"
+    DATA_DIR / "google_machine_hardware_cleaned.csv"
 )
 
 usage = pd.read_csv(
-    "data/google_instance_usage_cleaned.csv"
+    DATA_DIR / "google_instance_usage_cleaned.csv"
 )
 
 # Validate one hardware record per machine
@@ -36,7 +41,7 @@ merged = merged.sort_values(
     ["machine_id", "start_time"]
 ).reset_index(drop=True)
 
-output_path = "data/google_hardware_workload_joined.csv"
+output_path = DATA_DIR / "google_hardware_workload_joined.csv"
 merged.to_csv(output_path, index=False)
 
 print("Joined rows:", len(merged))

@@ -1,8 +1,13 @@
 
+from pathlib import Path
+
 import pandas as pd
 
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / 'data'
+
 # Step 1: Load the prepared energy dataset
-df = pd.read_csv("data/specpower_energy.csv")
+df = pd.read_csv(DATA_DIR / "specpower_energy.csv")
 
 # Step 2: Define a minimum performance requirement
 # Keep servers performing at or above the dataset's
@@ -231,9 +236,9 @@ print(
 # Save performance-qualified configuration groups for
 # downstream analysis and dashboard development.
 
-from pathlib import Path
 
-output_dir = Path("data")
+
+output_dir = DATA_DIR
 output_dir.mkdir(exist_ok=True)
 
 recommended_servers.to_csv(
@@ -405,7 +410,7 @@ print(inconsistent_groups.head(10).to_string(index=False))
 # and validated configuration grouping.
 
 updated_recommendations.to_csv(
-    "data/specpower_recommendations.csv",
+    DATA_DIR / "specpower_recommendations.csv",
     index=False
 )
 
@@ -418,7 +423,7 @@ print(updated_recommendations.columns.tolist())
 # Step 18: Export Enriched Energy Dataset
 
 df.to_csv(
-    "data/specpower_energy.csv",
+    DATA_DIR / "specpower_energy.csv",
     index=False
 )
 
