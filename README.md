@@ -204,6 +204,41 @@ Open the Airflow interface on port `8080`, sign in using the locally configured 
 
 A valid local Google Cloud authentication configuration and dbt profile are required. Authentication credentials must not be committed to the repository.
 
+## Cloud Infrastructure & Deployment
+
+### Terraform Infrastructure
+
+Terraform defines the existing Google BigQuery datasets:
+
+- `raw_data` — source and cleaned data.
+- `analytics` — dbt analytical models and marts.
+
+Terraform configuration is located in `terraform/main.tf`, using Google Cloud project `data-center-hardware` and the EU BigQuery location.
+
+Both existing datasets were imported into local Terraform state. The latest `terraform plan` confirmed **No changes**, meaning the configuration matched the deployed datasets. Terraform state is local and is not committed to GitHub.
+
+### Streamlit Deployment on Google Cloud Run
+
+The Streamlit dashboard is containerized with Docker and deployed to Google Cloud Run.
+
+**Deployment architecture:**
+
+`Streamlit → Docker → Artifact Registry → Cloud Run → BigQuery`
+
+- **Cloud Run service:** `data-center-dashboard`
+- **Region:** `europe-west1`
+- **Container image:** `streamlit-app:v2`
+- **Authentication:** Cloud Run service account with BigQuery access
+- **Access:** Public dashboard URL
+
+**Live Dashboard:**
+
+https://data-center-dashboard-971098779686.europe-west1.run.app
+
+The deployed dashboard includes all five analytical sections and was manually verified against BigQuery-backed data.
+
+Cloud Run hosts the Streamlit application. Airflow orchestration runs separately in the local Docker Compose environment.
+
 ## Data Limitations
 
 - **Different Google Cluster cells:** Cell A power measurements and Cell G workload records cannot be directly matched.
