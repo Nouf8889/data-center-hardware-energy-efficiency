@@ -10,6 +10,11 @@ models:
         data_tests:
           - not_null
 
+      - name: server_model
+        description: "Server model identifier."
+        data_tests:
+          - not_null
+
       - name: ssj_ops_per_watt
         description: "Performance per watt."
         data_tests:
@@ -19,4 +24,3 @@ models:
         description: "Average power consumption at 100% load."
         data_tests:
           - not_null
-          
