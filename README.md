@@ -202,7 +202,19 @@ docker compose -f airflow/compose.yaml up -d --build
 
 Open the Airflow interface on port `8080`, sign in using the locally configured account, and manually trigger the DAG.
 
-A valid local Google Cloud authentication configuration and dbt profile are required. Authentication credentials must not be committed to the repository.
+A valid local Google Cloud authentication configuration and dbt profile are required.
+
+Before starting Airflow, make sure that:
+
+- `~/.dbt/profiles.yml` contains a valid `dbt_project` profile configured for BigQuery.
+- Google Cloud authentication is configured locally and has the required BigQuery permissions.
+- The local dbt profile directory is mounted read-only into the Airflow container through Docker Compose.
+
+Validate the local dbt configuration and connection from the repository root:
+
+```bash
+dbt debug --project-dir dbt_project --profiles-dir "$HOME/.dbt"
+```
 
 ## Cloud Infrastructure & Deployment
 

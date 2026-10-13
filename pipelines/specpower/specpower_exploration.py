@@ -1,6 +1,10 @@
 
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
+
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / 'data'
 
 # ============================================================
 # SPECpower Dataset - Extraction, Cleaning, and Validation
@@ -342,10 +346,10 @@ print((df_energy["efficiency_100"] <= 0).sum())
 # Save the cleaned dataset and the final energy analysis dataset.
 # Each CSV file is exported only once.
 
-from pathlib import Path
+
 
 # Create the output directory if it does not exist.
-output_dir = Path("data")
+output_dir = DATA_DIR
 output_dir.mkdir(exist_ok=True)
 
 # Export all cleaned benchmark records (14 columns).

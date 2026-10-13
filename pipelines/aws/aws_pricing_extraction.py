@@ -20,7 +20,9 @@ CSV_PATH = (
 
 URL = BASE_URL + CSV_PATH
 
-OUTPUT_FILE = Path("data/aws_ec2_pricing_cleaned.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+OUTPUT_FILE = DATA_DIR / "aws_ec2_pricing_cleaned.csv"
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 TARGET_FAMILIES = (
