@@ -10,17 +10,53 @@ models:
         data_tests:
           - not_null
 
+      - name: system_enclosure
+        description: "Server system enclosure or chassis."
+
       - name: server_model
         description: "Server model identifier."
         data_tests:
           - not_null
 
-      - name: ssj_ops_per_watt
-        description: "Performance per watt."
+      - name: cpu_model
+        description: "Processor model."
+
+      - name: cpu_description
+        description: "Detailed processor description."
+
+      - name: cpu_mhz
+        description: "Processor clock speed in MHz."
+
+      - name: cpu_chips
+        description: "Number of CPU chips."
+
+      - name: cpu_cores
+        description: "Number of CPU cores."
+
+      - name: cpu_threads
+        description: "Number of CPU threads."
+
+      - name: total_memory_gb
+        description: "Total installed system memory in GB."
+
+      - name: nodes
+        description: "Number of nodes in the tested system."
+
+      - name: ssj_ops_100
+        description: "SPECpower performance score at 100% load."
+
+      - name: avg_watts_100
+        description: "Average power consumption in watts at 100% load."
         data_tests:
           - not_null
 
-      - name: avg_watts_100
-        description: "Average power consumption at 100% load."
+      - name: avg_watts_idle
+        description: "Average power consumption in watts at idle."
+
+      - name: ssj_ops_per_watt
+        description: "Overall SPECpower performance per watt."
         data_tests:
           - not_null
+
+      - name: efficiency_100
+        description: "Performance per watt at 100% load."
