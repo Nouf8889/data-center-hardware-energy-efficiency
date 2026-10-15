@@ -1,7 +1,13 @@
+from pathlib import Path
+
 import pandas as pd
 
 # Load raw hardware data
-df = pd.read_csv("data/google_machine_hardware_raw.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+INPUT_FILE = DATA_DIR / "google_machine_hardware_raw.csv"
+
+df = pd.read_csv(INPUT_FILE)
 
 print("Original shape:", df.shape)
 
@@ -30,7 +36,7 @@ assert df["memory_capacity"].between(0, 1).all(), "Invalid memory capacity"
 df = df.sort_values("machine_id").reset_index(drop=True)
 
 # Save cleaned dataset
-output_path = "data/google_machine_hardware_cleaned.csv"
+output_path = DATA_DIR / "google_machine_hardware_cleaned.csv"
 df.to_csv(output_path, index=False)
 
 print("Cleaned shape:", df.shape)

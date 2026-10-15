@@ -86,22 +86,16 @@ try:
     # ---------------------------------
     st.subheader("Filters")
 
-    pdu_options = sorted(
-        df["pdu"].dropna().unique().tolist()
-    )
+    st.markdown("**Power Source:** Google Cell A — PDU10")
 
-    if not pdu_options:
-        st.warning("No PDU values available.")
-        st.stop()
-
-    selected_pdu = st.selectbox(
-        "Select PDU",
-        pdu_options,
-    )
-
+    # The source dataset contains only PDU10.
     pdu_df = df[
-        df["pdu"] == selected_pdu
+        df["pdu"].astype(str).str.upper().isin(["PDU10", "10"])
     ].copy()
+
+    if pdu_df.empty:
+        st.warning("No PDU10 data available.")
+        st.stop()
 
     min_hour = float(
         pdu_df["hours_from_start"].min()

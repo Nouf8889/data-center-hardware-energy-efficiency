@@ -1,7 +1,13 @@
+from pathlib import Path
+
 import pandas as pd
 
 # Load raw data
-df = pd.read_csv("data/google_instance_usage_raw.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+INPUT_FILE = DATA_DIR / "google_instance_usage_raw.csv"
+
+df = pd.read_csv(INPUT_FILE)
 
 print("Original shape:", df.shape)
 
@@ -38,7 +44,7 @@ df = df.sort_values(
 ).reset_index(drop=True)
 
 # Save cleaned data
-output_path = "data/google_instance_usage_cleaned.csv"
+output_path = DATA_DIR / "google_instance_usage_cleaned.csv"
 df.to_csv(output_path, index=False)
 
 print("Cleaned shape:", df.shape)

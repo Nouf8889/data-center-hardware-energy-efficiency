@@ -235,3 +235,13 @@ dbt_project/.user.yml
 
 # Airflow runtime logs
 airflow/logs/
+
+/airflow/credentials/
+
+# Terraform local files
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/crash.log
+**/crash.*.log
+**/*.tfplan

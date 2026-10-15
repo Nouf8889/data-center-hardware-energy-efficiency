@@ -1,7 +1,12 @@
+from pathlib import Path
+
 import pandas as pd
 
-INPUT_FILE = "data/google_power_cella_pdu10_raw.csv"
-OUTPUT_FILE = "data/google_power_cella_pdu10_cleaned.csv"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
+
+INPUT_FILE = DATA_DIR / "google_power_cella_pdu10_raw.csv"
+OUTPUT_FILE = DATA_DIR / "google_power_cella_pdu10_cleaned.csv"
 
 df = pd.read_csv(INPUT_FILE)
 

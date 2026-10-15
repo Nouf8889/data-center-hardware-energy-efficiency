@@ -1,0 +1,35 @@
+
+# Git
+.git/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Google Cloud credentials and secrets
+**/credentials/
+**/*credentials*.json
+**/service-account*.json
+**/.env
+**/.env.*
+**/.streamlit/secrets.toml
+
+# Terraform
+terraform/
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+
+# Airflow and dbt
+airflow/
+dbt_project/
+**/target/
+**/logs/
+
+# Datasets and local files
+data/
+docs/
+*.csv
+*.parquet
